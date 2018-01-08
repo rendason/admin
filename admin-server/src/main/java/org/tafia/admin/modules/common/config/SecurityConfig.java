@@ -1,4 +1,4 @@
-package org.tafia.admin.config;
+package org.tafia.admin.modules.common.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,13 +24,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -152,8 +150,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             if (StringUtils.startsWith(fullToken, tokenPrefix)) {
                 String token = fullToken.substring(tokenPrefix.length());
                 Claims claims = getClaims(token);
-                if (claims.getExpiration() != null && new Date().before(claims.getExpiration())) {
-                    UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(claims.getSubject());
+                if (claims.getExpiration() != null && claims.getSubject() != null && new Date().before(claims.getExpiration())) {
+                    String username = claims.getSubject();
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
@@ -165,10 +164,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .setSigningKey(jwtSecret.getBytes())
                     .parseClaimsJws(token)
                     .getBody();
-        }
-
-        private UsernamePasswordAuthenticationToken getAuthenticationToken(String user) {
-            return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
         }
     }
 }

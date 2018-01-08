@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: product
+  security:
+      jwt:
+        secret: tafia.org
+        expiration: 604800000
+      header: Authorization
+      prefix: AdminServer
+server:
+  port: 13494

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="20">
+    <Properties>
+        <Property name="LOG_FILE">logs/admin-server.log</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%level] %date{yyy-MM-dd HH:mm:ss.SSS} %C{1.}:%line [%thread] %msg%n"/>
+        </Console>
+        <RollingRandomAccessFile name="RollingFile" fileName="${LOG_FILE}"
+                                 filePattern="${LOG_FILE}-%d{yyyyMMdd-HH-mm-ss}.log">
+            <PatternLayout pattern="[%level] %date{yyy-MM-dd HH:mm:ss.SSS} %c{1.}:%line [%thread] %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

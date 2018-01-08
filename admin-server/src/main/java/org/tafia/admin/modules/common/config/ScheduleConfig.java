@@ -1,4 +1,4 @@
-package org.tafia.admin.config;
+package org.tafia.admin.modules.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
