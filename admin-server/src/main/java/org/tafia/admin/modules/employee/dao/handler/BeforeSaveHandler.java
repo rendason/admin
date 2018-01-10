@@ -1,10 +1,10 @@
-package org.tafia.admin.modules.common.dao.handler;
+package org.tafia.admin.modules.employee.dao.handler;
 
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.tafia.admin.modules.common.model.User;
+import org.tafia.admin.modules.employee.model.User;
 
 @Component
 @RepositoryEventHandler

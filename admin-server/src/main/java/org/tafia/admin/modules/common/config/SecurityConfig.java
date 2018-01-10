@@ -14,12 +14,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,9 +41,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.security.jwt.secret}")
@@ -129,8 +136,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+            Set<String> roles = authResult.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+            String subject = new JSONObject()
+                    .fluentPut("name", authResult.getName())
+                    .fluentPut("roles", roles)
+                    .toJSONString();
             String token = Jwts.builder()
-                    .setSubject(authResult.getName())
+                    .setSubject(subject)
                     .setExpiration(new Date(System.currentTimeMillis() + expiration))
                     .signWith(SignatureAlgorithm.HS512, jwtSecret.getBytes())
                     .compact();
@@ -151,8 +163,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 String token = fullToken.substring(tokenPrefix.length());
                 Claims claims = getClaims(token);
                 if (claims.getExpiration() != null && claims.getSubject() != null && new Date().before(claims.getExpiration())) {
-                    String username = claims.getSubject();
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+                    JSONObject subject = JSON.parseObject(claims.getSubject());
+                    String username = subject.getString("name");
+                    List<String> roles = subject.getJSONArray("roles").toJavaList(String.class);
+                    Set<GrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }

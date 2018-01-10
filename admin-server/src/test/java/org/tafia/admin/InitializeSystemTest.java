@@ -5,8 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.tafia.admin.modules.common.dao.UserDao;
-import org.tafia.admin.modules.common.model.User;
+import org.tafia.admin.modules.employee.dao.UserDao;
+import org.tafia.admin.modules.employee.model.User;
 import org.testng.annotations.Test;
 
 import java.util.Collections;

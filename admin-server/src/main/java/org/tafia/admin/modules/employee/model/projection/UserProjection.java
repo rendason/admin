@@ -1,7 +1,7 @@
-package org.tafia.admin.modules.common.model.projection;
+package org.tafia.admin.modules.employee.model.projection;
 
 import org.springframework.data.rest.core.config.Projection;
-import org.tafia.admin.modules.common.model.User;
+import org.tafia.admin.modules.employee.model.User;
 
 import java.util.Set;
 

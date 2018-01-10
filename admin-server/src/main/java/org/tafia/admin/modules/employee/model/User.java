@@ -1,7 +1,8 @@
-package org.tafia.admin.modules.common.model;
+package org.tafia.admin.modules.employee.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 public class User {
@@ -12,6 +13,12 @@ public class User {
     private String username;
 
     private String password;
+
+    private String mobile;
+
+    private String weixin;
+
+    private BigDecimal salary;
 
     private Set<String> roles;
 
@@ -37,6 +44,30 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
     public Set<String> getRoles() {
