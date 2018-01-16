@@ -1,4 +1,4 @@
-package org.tafia.admin.modules.employee.model;
+package org.tafia.admin.modules.weixin.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -6,8 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by Dason on 2018/1/13.
  */
-@XmlRootElement(name = "xml")
-public class WeixinTextMessage {
+public class WeixinReplyMessage {
 
     private String toUserName;
 
@@ -16,10 +15,6 @@ public class WeixinTextMessage {
     private Integer createTime;
 
     private String msgType;
-
-    private String content;
-
-    private Long msgId;
 
     public String getToUserName() {
         return toUserName;
@@ -55,23 +50,5 @@ public class WeixinTextMessage {
     @XmlElement(name = "MsgType")
     public void setMsgType(String msgType) {
         this.msgType = msgType;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    @XmlElement(name = "Content")
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Long getMsgId() {
-        return msgId;
-    }
-
-    @XmlElement(name = "MsgId")
-    public void setMsgId(Long msgId) {
-        this.msgId = msgId;
     }
 }
