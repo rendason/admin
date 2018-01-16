@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "xml")
-public class ReceiveTextMessage extends WeixinReceiveMessage {
+public class TextReceiveMessage extends WeixinReceiveMessage {
 
     private String content;
 

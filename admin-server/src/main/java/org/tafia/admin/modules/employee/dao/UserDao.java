@@ -14,4 +14,6 @@ public interface UserDao extends MongoRepository<User, String> {
 
     User findByUsername(String name);
 
+    User findUserByWeixin(String weixin);
+
 }
