@@ -1,14 +1,12 @@
 package org.tafia.admin.modules.employee.model;
 
-import org.springframework.data.annotation.Id;
+import org.tafia.admin.modules.common.model.Entity;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 
-public class User {
-
-    @Id
-    private String id;
+public class User extends Entity{
 
     private String username;
 
@@ -18,17 +16,9 @@ public class User {
 
     private String weixin;
 
-    private BigDecimal salary;
+    private Map<String, BigDecimal> salary;
 
     private Set<String> roles;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -62,11 +52,11 @@ public class User {
         this.weixin = weixin;
     }
 
-    public BigDecimal getSalary() {
+    public Map<String, BigDecimal> getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary(Map<String, BigDecimal> salary) {
         this.salary = salary;
     }
 

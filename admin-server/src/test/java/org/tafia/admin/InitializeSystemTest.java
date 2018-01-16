@@ -12,13 +12,12 @@ import org.tafia.admin.modules.employee.model.User;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("dev")
 @WithMockUser(username = "admin", authorities = "owner")
-@Ignore
+//@Ignore
 public class InitializeSystemTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -33,7 +32,7 @@ public class InitializeSystemTest extends AbstractTestNGSpringContextTests {
         user.setUsername("admin");
         user.setPassword(passwordEncoder.encode("tafia.org"));
         user.setRoles(Collections.singleton("owner"));
-        user.setSalary(new BigDecimal("23222.20"));
+        user.setSalary(Collections.emptyMap());
         userDao.save(user);
     }
 
@@ -41,5 +40,10 @@ public class InitializeSystemTest extends AbstractTestNGSpringContextTests {
     public void testFindByName() {
         User user = userDao.findByUsername("admin");
         System.out.println(JSON.toJSONString(user));
+    }
+
+    @Test
+    public void testDeleteUsers() {
+        userDao.deleteAll();
     }
 }
