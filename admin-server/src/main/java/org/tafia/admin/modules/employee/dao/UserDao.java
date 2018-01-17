@@ -9,11 +9,13 @@ import org.tafia.admin.modules.employee.model.projection.UserProjection;
 
 @Repository
 @RepositoryRestResource(excerptProjection = UserProjection.class)
-//@PreAuthorize("hasAnyAuthority('owner', 'manager')")
+@PreAuthorize("hasAnyAuthority('owner', 'manager')")
 public interface UserDao extends MongoRepository<User, String> {
 
+    @PreAuthorize("isAnonymous()")
     User findByUsername(String name);
 
+    @PreAuthorize("isAnonymous()")
     User findUserByWeixin(String weixin);
 
 }
