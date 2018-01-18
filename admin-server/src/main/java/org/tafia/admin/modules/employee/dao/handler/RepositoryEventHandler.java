@@ -1,5 +1,6 @@
 package org.tafia.admin.modules.employee.dao.handler;
 
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,11 +19,12 @@ public class RepositoryEventHandler {
     }
 
     @HandleBeforeSave
-    public void beforePersonSave(User user) {
+    @HandleBeforeCreate
+    public void beforeUserSave(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 
-    @HandleBeforeSave
+    @HandleBeforeCreate
     public void beforeAuthorizedAddressSave(AuthorizedAddress authorizedAddress) {
         authorizedAddress.setIp(RequestUtils.getIp());
     }

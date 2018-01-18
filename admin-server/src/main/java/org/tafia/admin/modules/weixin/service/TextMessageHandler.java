@@ -6,6 +6,7 @@ import org.tafia.admin.modules.employee.dao.AttendanceDao;
 import org.tafia.admin.modules.employee.dao.UserDao;
 import org.tafia.admin.modules.employee.model.Attendance;
 import org.tafia.admin.modules.employee.model.User;
+import org.tafia.admin.modules.employee.service.AttendanceService;
 import org.tafia.admin.modules.weixin.model.TextReceiveMessage;
 import org.tafia.admin.modules.weixin.model.TextReplyMessage;
 import org.tafia.admin.modules.weixin.model.WeixinReplyMessage;
@@ -21,11 +22,11 @@ public class TextMessageHandler implements WeixinMessageHandler<TextReceiveMessa
 
     private UserDao userDao;
 
-    private AttendanceDao attendanceDao;
+    private AttendanceService attendanceService;
 
-    public TextMessageHandler(UserDao userDao, AttendanceDao attendanceDao) {
+    public TextMessageHandler(UserDao userDao, AttendanceService attendanceService) {
         this.userDao = userDao;
-        this.attendanceDao = attendanceDao;
+        this.attendanceService = attendanceService;
     }
 
     @Override
@@ -42,13 +43,7 @@ public class TextMessageHandler implements WeixinMessageHandler<TextReceiveMessa
             if (user == null) {
                 answer = "请回复“绑定+用户名”进行绑定";
             } else {
-                Attendance attendance = new Attendance();
-                attendance.setUserId(user.getId());
-                attendance.setAction("SignIn");
-                attendance.setTimestamp(System.currentTimeMillis());
-                attendanceDao.save(attendance);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                answer = "打卡成功 " + user.getUsername() + "\n" + dateFormat.format(new Date(attendance.getTimestamp()));
+                answer = attendanceService.generatePunchUrl(user.getId());
             }
         } else if (StringUtils.startsWith(question, "绑定")) {
             String username = StringUtils.substring(question, 2);

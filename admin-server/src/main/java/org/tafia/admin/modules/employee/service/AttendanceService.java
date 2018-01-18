@@ -1,26 +1,25 @@
 package org.tafia.admin.modules.employee.service;
 
-import org.tafia.admin.modules.employee.model.Attendance;
-
-import java.util.List;
+import org.tafia.admin.modules.common.model.ResponseMessage;
 
 public interface AttendanceService {
 
-    /**
-     * 打卡
-     * @param userId 用户id
-     * @param ip ip地址
-     * @return 处理结果
-     */
-    String punch(String userId, long timestamp);
+    String generatePunchUrl(String userId);
 
     /**
-     * 请假
+     * 打卡
+     * @param token 令牌
+     * @return 处理结果
+     */
+    ResponseMessage punch(String token);
+
+    /**
+     * 当前用户请假
      * @param userId 用户id
      * @param startTime 开始时间
      * @param endTime 结束时间
      * @return 处理结果
      */
-    List<Attendance> leave(String userId, String startTime, String endTime);
+    ResponseMessage leave(String startTime, String endTime);
 
 }
