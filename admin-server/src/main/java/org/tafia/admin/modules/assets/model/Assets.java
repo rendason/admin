@@ -2,6 +2,9 @@ package org.tafia.admin.modules.assets.model;
 
 import org.tafia.admin.modules.common.model.Entity;
 
+/**
+ * 资产
+ */
 public class Assets extends Entity {
 
     private String name;
@@ -75,6 +78,17 @@ public class Assets extends Entity {
     }
 
     public enum Type {
-        FIXED, INVENTORY, CASH
+        /**
+         * 固定资产
+         */
+        FIXED,
+        /**
+         * 库存
+         */
+        INVENTORY,
+        /**
+         * 现金
+         */
+        CASH
     }
 }

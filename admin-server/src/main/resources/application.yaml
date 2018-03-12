@@ -7,8 +7,3 @@ spring:
         expiration: 604800000
       header: Authorization
       prefix: AdminServer
-  weixin:
-    token: orgtafiaweixintoken147369
-    aes: n5zY6W633AJ6YCiZYRQ4hgQ0SKDVGcwSFIBbvp0Hd13
-server:
-  port: 80
