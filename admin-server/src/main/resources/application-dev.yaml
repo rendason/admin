@@ -1,6 +1,9 @@
 spring:
   data:
     mongodb:
-      host: localhost
+      host: storage.tafia.org
       port: 27017
       database: admin-server-dev
+      username: root
+      password: tafia.storage.1234.!@#$
+      authentication-database: admin
