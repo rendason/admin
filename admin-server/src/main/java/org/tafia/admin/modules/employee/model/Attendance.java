@@ -9,7 +9,7 @@ public class Attendance extends Entity{
 
     private String userId;
 
-    private Action action;
+    private String action;
 
     private Long timestamp;
 
@@ -21,11 +21,11 @@ public class Attendance extends Entity{
         this.userId = userId;
     }
 
-    public Action getAction() {
+    public String getAction() {
         return action;
     }
 
-    public void setAction(Action action) {
+    public void setAction(String action) {
         this.action = action;
     }
 
@@ -35,9 +35,5 @@ public class Attendance extends Entity{
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public enum  Action {
-        PUNCH, LEAVE
     }
 }
