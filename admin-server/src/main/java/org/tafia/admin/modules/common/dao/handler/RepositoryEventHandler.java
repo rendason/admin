@@ -1,4 +1,4 @@
-package org.tafia.admin.modules.employee.dao.handler;
+package org.tafia.admin.modules.common.dao.handler;
 
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;

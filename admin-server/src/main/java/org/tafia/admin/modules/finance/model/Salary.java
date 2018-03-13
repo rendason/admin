@@ -10,14 +10,29 @@ import java.util.Map;
  */
 public class Salary extends Entity {
 
+    /**
+     * 年
+     */
     private Integer year;
 
+    /**
+     * 月
+     */
     private Integer month;
 
+    /**
+     * 计划薪资
+     */
     private Map<String, BigDecimal> plannedSalary;
 
+    /**
+     * 扣减薪资
+     */
     private Map<String, BigDecimal> deductedSalary;
 
+    /**
+     * 是否支付
+     */
     private Boolean paid;
 
     public Integer getYear() {

@@ -10,5 +10,3 @@ spring:
   weixin:
     token: orgtafiaweixintoken147369
     aes: n5zY6W633AJ6YCiZYRQ4hgQ0SKDVGcwSFIBbvp0Hd13
-server:
-  port: 80

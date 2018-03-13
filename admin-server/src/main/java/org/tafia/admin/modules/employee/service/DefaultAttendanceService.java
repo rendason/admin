@@ -69,7 +69,7 @@ public class DefaultAttendanceService implements AttendanceService {
             return new ResponseMessage("请使用指定网络重新访问");
         Attendance attendance = new Attendance();
         attendance.setUserId(userId);
-        attendance.setAction("PUNCH");
+        attendance.setAction(Attendance.Action.PUNCH);
         attendance.setTimestamp(System.currentTimeMillis());
         return new ResponseMessage("打卡成功", attendanceDao.save(attendance));
     }
@@ -97,7 +97,7 @@ public class DefaultAttendanceService implements AttendanceService {
     private Attendance createLeaveAttendance(String userId, long timestamp) {
         Attendance attendance = new Attendance();
         attendance.setUserId(userId);
-        attendance.setAction("LEAVE");
+        attendance.setAction(Attendance.Action.LEAVE);
         attendance.setTimestamp(timestamp);
         return attendance;
     }
@@ -111,6 +111,10 @@ public class DefaultAttendanceService implements AttendanceService {
     }
 
     private String decodePunchToken(String token) {
-        return new String(Base64.getDecoder().decode(token));
+        try {
+            return new String(Base64.getDecoder().decode(token));
+        } catch (IllegalArgumentException e) {
+            return "";
+        }
     }
 }
