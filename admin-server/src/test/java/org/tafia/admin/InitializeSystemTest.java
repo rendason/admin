@@ -12,7 +12,7 @@ import org.tafia.admin.modules.employee.model.User;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
+import java.util.*;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("dev")
@@ -46,4 +46,5 @@ public class InitializeSystemTest extends AbstractTestNGSpringContextTests {
     public void testDeleteUsers() {
         userDao.deleteAll();
     }
+
 }
